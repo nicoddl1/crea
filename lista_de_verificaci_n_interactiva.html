@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Verificación - Actividad de IA</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, Verdana, sans-serif;
+      background-color: #f4f7f6;
+      margin: 0;
+      padding: 16px;
+      color: #1c2541;
+      line-height: 1.8;
+      letter-spacing: 0.5px;
+      text-align: left;
+    }
+
+    .container {
+      max-width: 650px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border: 2px solid #cbd5e0;
+      border-left: 8px solid #2a9d8f;
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
+    }
+
+    .title {
+      color: #1a365d;
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .description {
+      margin-bottom: 20px;
+      font-size: 0.98rem;
+      color: #4a5568;
+    }
+
+    .checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+      user-select: none;
+    }
+
+    .checkbox-item:hover {
+      background-color: #edf2f7;
+      border-color: #cbd5e0;
+    }
+
+    .checkbox-item input[type="checkbox"] {
+      width: 22px;
+      height: 22px;
+      margin-top: 3px;
+      cursor: pointer;
+      accent-color: #2a9d8f;
+      flex-shrink: 0;
+    }
+
+    .checkbox-item span {
+      font-size: 1rem;
+      color: #2d3748;
+      font-weight: 500;
+    }
+
+    .success-box {
+      display: none;
+      background-color: #d1e7dd;
+      border: 2px solid #0f5132;
+      color: #0f5132;
+      padding: 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: 16px;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .footer-note {
+      border-top: 1px solid #e2e8f0;
+      padding-top: 12px;
+      font-size: 0.95rem;
+      color: #2d3748;
+    }
+
+    .btn-reset {
+      background: none;
+      border: none;
+      color: #718096;
+      text-decoration: underline;
+      font-size: 0.85rem;
+      cursor: pointer;
+      padding: 0;
+      margin-top: 8px;
+    }
+
+    .btn-reset:hover {
+      color: #2d3748;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2 class="title">Lista de verificación antes de entregar</h2>
+    <p class="description">Marca cada casilla a medida que revises los elementos de tu trabajo en equipo:</p>
+
+    <div class="checklist">
+      <label class="checkbox-item">
+        <input type="checkbox" class="chk-item" onchange="actualizarVerificacion()">
+        <span>¿El póster incluye las imágenes de los 2 dibujos reconociéndose en la IA?</span>
+      </label>
+
+      <label class="checkbox-item">
+        <input type="checkbox" class="chk-item" onchange="actualizarVerificacion()">
+        <span>¿Respondieron las 5 preguntas teóricas y de análisis sobre Machine Learning?</span>
+      </label>
+    </div>
+
+    <!-- Mensaje dinámico de confirmación -->
+    <div id="mensajeExito" class="success-box">
+      🎉 ¡Bien! Estás listo para realizar la entrega.
+    </div>
+
+    <div class="footer-note">
+      <strong>Instrucción final:</strong> Suban el archivo del póster (PDF o Imagen) en este apartado de Schoology.
+      <br>
+      <button class="btn-reset" onclick="reiniciarVerificacion()">Reiniciar casillas</button>
+    </div>
+  </div>
+
+  <script>
+    function actualizarVerificacion() {
+      const casillas = document.querySelectorAll('.chk-item');
+      let todasMarcadas = true;
+
+      casillas.forEach(chk => {
+        if (!chk.checked) {
+          todasMarcadas = false;
+        }
+      });
+
+      const mensaje = document.getElementById('mensajeExito');
+      if (todasMarcadas) {
+        mensaje.style.display = 'block';
+      } else {
+        mensaje.style.display = 'none';
+      }
+    }
+
+    function reiniciarVerificacion() {
+      const casillas = document.querySelectorAll('.chk-item');
+      casillas.forEach(chk => {
+        chk.checked = false;
+      });
+      document.getElementById('mensajeExito').style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
